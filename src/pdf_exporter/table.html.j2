@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Anki PDF Exporter: {{ cur.deck_name }} ({{ cur.num_cards }} cards)</title>
+    <style>
+        body {
+            font-size: {{ export_options.font_size }}pt;
+            font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+        }
+        .cards-container {
+            column-count: {{ export_options.column_count }};
+        }
+        .card > table {
+            width: 100%;
+        }
+        .card > table > tr > td {
+            vertical-align: top
+        }
+        td.question, td.answer {
+            word-break: break-all;
+            word-break: break-word;
+            hyphens: auto;
+        }
+        td.index {
+            font-size: 9pt;
+            width: 5%;
+            color: #888888;
+        }
+        td.question {
+            width: {{ export_options.question_col_width }}%;
+            font-weight: normal;
+        }
+        td.spacer {
+            width: 3%;
+        }
+        td.answer {
+            width: 100%;
+        }
+        .card {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        img {
+            max-width: {{ export_options.max_img_width }}%;
+            max-height: {{ export_options.max_img_height }}vh;
+        }
+        hr {
+            color: #DADADA;
+            border-width: 1px;
+            height: 0px;
+            border-style: solid;
+        }
+        {{ exporter.user_style }}
+    </style>
+    {{ exporter.base }}
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    function unfixAll() {
+      for (const el of document.getElementsByTagName("*")){
+          var style = window.getComputedStyle(el);
+          if (style.position === "fixed") {
+            if (style.display === "none" || style.visibility === "hidden") return;
+            el.remove();
+          }
+      }
+    }
+    function removeInlineImgStyles(){
+        for(let elm of document.getElementsByTagName("img")){
+            elm.style.width = null;
+            elm.style.height = null;
+      }
+    }
+
+    window.addEventListener("load", unfixAll);
+    window.addEventListener("load", removeInlineImgStyles);
+    </script>
+</head>
+    
+<body>
+<div class="cards-container">
+    {% for card in cards %}
+        <div class="card">
+            <table>
+                <tr>
+                    <td class="index" style="{{ card.index_style }}">{{ card.index }}</td>
+                    <td class="question">{{ card.question }}</td>
+                    <td class="spacer">&nbsp;</td>
+                    <td class="answer">{{ card.answer }}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+    {% endfor %}
+    <hr>
+</div>
+</body>
+</html>
