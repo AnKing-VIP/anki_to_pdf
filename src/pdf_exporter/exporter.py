@@ -14,7 +14,7 @@ from aqt.qt import *
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 
-from .export_templates import get_export_styling
+from .export_templates import get_export_styling, get_export_templates
 from .utils import open_file, open_link
 
 ADDON_PATH = Path(__file__).parent
@@ -109,7 +109,7 @@ class AnkiToHtmlExporter(Exporter):
             note: Note = self.col.get_note(nid)
 
             cards_for_note = []
-            if export_templates := export_templates(note.note_type()["name"]):
+            if export_templates := get_export_templates(note.note_type()["name"]):
                 model = copy.deepcopy(note.note_type())
                 model.update(
                     {
