@@ -1,5 +1,8 @@
 import subprocess
 from pathlib import Path
+from .compat import add_compat_aliases
+
+add_compat_aliases()
 
 from anki.utils import is_mac, is_win
 from aqt.qt import *
