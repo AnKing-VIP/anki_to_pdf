@@ -1,7 +1,7 @@
 from pathlib import Path
 from shutil import copytree, rmtree
 
-from aqt.gui_hooks import card_layout_will_show, profile_did_open
+from aqt.gui_hooks import card_layout_will_show
 from aqt.qt import *
 
 from .clayout import add_export_template_managment_to_clayout
