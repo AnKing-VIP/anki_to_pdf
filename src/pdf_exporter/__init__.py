@@ -43,4 +43,4 @@ def setup_menu() -> None:
     pdf_exporter_menu.addAction(reset_anking_export_templates_action)
 
 
-profile_did_open.append(setup_menu)
+setup_menu()
