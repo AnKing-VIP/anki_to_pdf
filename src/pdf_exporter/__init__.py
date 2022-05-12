@@ -16,7 +16,8 @@ ANKING_EXPORT_TEMPLATES_PATH = ADDON_PATH / "anking_export_templates"
 
 add_compat_aliases()
 
-profile_did_open.append(initialize_exporters)
+initialize_exporters()
+
 card_layout_will_show.append(add_export_template_managment_to_clayout)
 
 
