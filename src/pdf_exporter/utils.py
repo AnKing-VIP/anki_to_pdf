@@ -4,7 +4,7 @@ from .compat import add_compat_aliases
 
 add_compat_aliases()
 
-from anki.utils import is_mac, is_win
+from anki.utils import is_mac, is_win  # type: ignore
 from aqt.qt import *
 
 
