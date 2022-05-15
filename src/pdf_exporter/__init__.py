@@ -6,13 +6,13 @@ from aqt.qt import *
 
 from .clayout import add_export_template_managment_to_clayout
 from .compat import add_compat_aliases
+from .consts import ANKING_EXPORT_TEMPLATES_PATH, USER_FILES_PATH
 from .exporter import initialize_exporters
 from .gui.anking_menu import get_anking_menu
 
+if not USER_FILES_PATH.exists():
+    USER_FILES_PATH.mkdir()
 
-ADDON_PATH = Path(__file__).parent
-USER_FILES_PATH = ADDON_PATH / "user_files"
-ANKING_EXPORT_TEMPLATES_PATH = ADDON_PATH / "anking_export_templates"
 
 add_compat_aliases()
 

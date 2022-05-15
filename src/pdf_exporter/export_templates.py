@@ -1,10 +1,9 @@
 import os
-from pathlib import Path
 import re
+from pathlib import Path
 from typing import Dict, List, Tuple
 
-ADDON_PATH = Path(__file__).parent
-USERFILES_PATH = ADDON_PATH / "user_files"
+from .consts import USER_FILES_PATH
 
 
 def get_export_templates(notetype_name: str) -> List[Dict]:
@@ -39,7 +38,7 @@ def get_export_template_paths(notetype_name: str, ord: int) -> Tuple[Path, Path]
 
 
 def existing_export_template_ords(notetype_name: str) -> List[int]:
-    if not (templates_dir := (USERFILES_PATH / notetype_name)).exists():
+    if not (templates_dir := (USER_FILES_PATH / notetype_name)).exists():
         return []
     result = []
     for front_path in templates_dir.glob("*_front.html"):
@@ -55,7 +54,7 @@ def existing_export_template_ords(notetype_name: str) -> List[int]:
 
 
 def create_templates_dir_if_not_exists(notetype_name: str):
-    if not (result := (USERFILES_PATH / notetype_name)).exists():
+    if not (result := (USER_FILES_PATH / notetype_name)).exists():
         os.mkdir(result)
     return result
 

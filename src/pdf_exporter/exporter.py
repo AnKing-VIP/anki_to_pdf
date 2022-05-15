@@ -14,13 +14,9 @@ from aqt.qt import *
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 
+from .consts import ADDON_PATH, DEFAULT_CSS_FILE_PATH, USER_CSS_FILE_PATH
 from .export_templates import get_export_styling, get_export_templates
 from .utils import open_file, open_link
-
-ADDON_PATH = Path(__file__).parent
-USERFILES_PATH = ADDON_PATH / "user_files"
-USER_CSS_FILE_PATH = USERFILES_PATH / "user.css"
-DEFAULT_CSS_FILE_PATH = Path(ADDON_PATH) / "default.css"
 
 jinja_env = Environment(loader=FileSystemLoader(ADDON_PATH))
 
