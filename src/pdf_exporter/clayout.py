@@ -4,20 +4,17 @@ from typing import Any, Dict, List
 from aqt import mw
 from aqt.clayout import CardLayout
 from aqt.qt import *
+from aqt.utils import tooltip
 
 try:
     from aqt.utils import disable_help_button  # not available in < 2.1.40
 except:
     pass
 
-from .export_templates import (
-    create_templates_dir_if_not_exists,
-    existing_export_template_ords,
-    get_export_styling,
-    get_export_styling_path,
-    get_export_styling_path,
-    get_export_template_paths,
-)
+from .export_templates import (create_templates_dir_if_not_exists,
+                               existing_export_template_ords,
+                               get_export_styling, get_export_styling_path,
+                               get_export_template_paths)
 from .utils import open_file
 
 # used to restore original templates to make it easier for the user to create modified versions of them
@@ -154,6 +151,10 @@ def _load_template_into_clayout(clayout: CardLayout, template: Dict):
 
 def _remove_export_template(clayout: CardLayout):
     ords = existing_export_template_ords(clayout.model["name"])
+    if not ords:
+        tooltip("No templates to remove")
+        return
+
     choice_idx = let_user_choose_from_list(
         "Choose export template to remove", list(map(str, ords))
     )
