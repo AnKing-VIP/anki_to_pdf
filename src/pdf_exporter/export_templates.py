@@ -3,6 +3,9 @@ import re
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from anki.utils import checksum
+
+from .anking_notetypes import anking_notetype_base_name
 from .consts import USER_FILES_PATH
 
 
@@ -38,7 +41,7 @@ def get_export_template_paths(notetype_name: str, ord: int) -> Tuple[Path, Path]
 
 
 def existing_export_template_ords(notetype_name: str) -> List[int]:
-    if not (templates_dir := (USER_FILES_PATH / notetype_name)).exists():
+    if not (templates_dir := (template_dir(notetype_name))).exists():
         return []
     result = []
     for front_path in templates_dir.glob("*_front.html"):
@@ -54,9 +57,17 @@ def existing_export_template_ords(notetype_name: str) -> List[int]:
 
 
 def create_templates_dir_if_not_exists(notetype_name: str):
-    if not (result := (USER_FILES_PATH / notetype_name)).exists():
-        os.mkdir(result)
-    return result
+    path = template_dir(notetype_name)
+    if not path.exists():
+        os.mkdir(path)
+    return path
+
+
+def template_dir(notetype_name: str) -> Path:
+    if anking_notetype_base_name(notetype_name):
+        return USER_FILES_PATH / anking_notetype_base_name(notetype_name)
+    else:
+        return USER_FILES_PATH / checksum(notetype_name)
 
 
 def create_styling_file_if_not_exists(notetype_name: str) -> Path:

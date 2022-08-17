@@ -2,10 +2,12 @@ from shutil import copytree, rmtree
 
 from aqt.gui_hooks import card_layout_will_show
 from aqt.qt import *
+from aqt.utils import tooltip
 
 from .clayout import add_export_template_managment_to_clayout
 from .compat import add_compat_aliases
 from .consts import ANKING_EXPORT_TEMPLATES_PATH, USER_FILES_PATH
+from .export_templates import template_dir
 from .exporter import initialize_exporters
 from .gui.anking_menu import get_anking_menu  # type: ignore
 
@@ -19,14 +21,15 @@ card_layout_will_show.append(add_export_template_managment_to_clayout)
 
 
 def reset_anking_export_templates():
-    for folder in ANKING_EXPORT_TEMPLATES_PATH.iterdir():
-        if not folder.is_dir():
+    for src_dir in ANKING_EXPORT_TEMPLATES_PATH.iterdir():
+        if not src_dir.is_dir():
             continue
 
-        rmtree(USER_FILES_PATH / folder.name, ignore_errors=True)
-        copytree(
-            ANKING_EXPORT_TEMPLATES_PATH / folder.name, USER_FILES_PATH / folder.name
-        )
+        target_dir = template_dir(src_dir.name)
+        rmtree(target_dir, ignore_errors=True)
+        copytree(src_dir, target_dir)
+
+    tooltip("Reset AnKing Export templates")
 
 
 def setup_menu() -> None:
