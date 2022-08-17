@@ -10,10 +10,10 @@ def icon_button(icon_data: Tuple[str, Tuple[int, int], str]) -> QToolButton:
     button.setIcon(icon)
     button.setIconSize(QSize(size[0], size[1]))
     button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-    button.setCursor(QCursor(Qt.PointingHandCursor))
+    button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
     button.setAutoRaise(True)
     button.setToolTip(url)
-    button.clicked.connect(lambda _, url=url: openLink(url))
+    button.clicked.connect(lambda _, url=url: openLink(url))  # type: ignore
     return button
 
 

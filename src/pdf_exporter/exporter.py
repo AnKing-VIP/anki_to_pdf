@@ -11,10 +11,15 @@ from anki.utils import ids2str
 from aqt import mw
 from aqt.exporting import ExportDialog
 from aqt.qt import *
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # type:ignore
 from jinja2 import Environment, FileSystemLoader
 
-from .consts import ADDON_PATH, DEFAULT_CSS_FILE_PATH, USER_CSS_FILE_PATH
+from .consts import (
+    ADDON_PATH,
+    DEFAULT_CSS_FILE_PATH,
+    USER_CSS_FILE_PATH,
+    USER_FILES_PATH,
+)
 from .export_templates import get_export_styling, get_export_templates
 from .utils import open_file, open_link
 
@@ -39,6 +44,7 @@ class AnkiToHtmlExporter(Exporter):
         Exporter.__init__(self, col)
 
         if not USER_CSS_FILE_PATH.exists():
+            USER_FILES_PATH.mkdir(exist_ok=True, parents=True)
             copyfile(DEFAULT_CSS_FILE_PATH, USER_CSS_FILE_PATH)
 
         self.user_style = USER_CSS_FILE_PATH.read_text()
