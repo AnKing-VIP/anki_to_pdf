@@ -1,14 +1,14 @@
 {
     "display_name": "PDF Exporter",
-    "module_name": "pdf_exporter",
+    "module_name": "1442112168",
     "repo_name": "anki_to_pdf",
-    "ankiweb_id": "",
+    "ankiweb_id": "1442112168",
     "author": "",
     "conflicts": [],
     "targets": [
         "anki21"
     ],
     "min_anki_version": "2.1.36",
-    "max_tested_anki_version": "2.1.51",
+    "max_tested_anki_version": "2.1.54",
     "ankiweb_conflicts_with_local": false
 }
