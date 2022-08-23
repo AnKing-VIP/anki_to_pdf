@@ -4,6 +4,8 @@
 
 You must be on Anki > 2.1.36 to use this add-on
 
+AnkiWeb listing: https://ankiweb.net/shared/info/1442112168
+
 ## How to Use
 1. Create print templates
   In the "add card" or "edit card" dialog, choose the note type that will be printed. Click "Cards".  At the bottom, click the "PDF Exporter Templates" and you can see options for changing the exporter templates that will be printed. These templates are already premade for [AnKing Note Types](https://github.com/AnKingMed/AnKing-Note-Types). If the AnKing Note Type premade templates aren't working, you can use the menu AnKing->PDF Exporter->Reset AnKing Templates
