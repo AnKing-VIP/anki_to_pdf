@@ -5,7 +5,21 @@
 You must be on Anki > 2.1.36 to use this add-on
 
 ## How to Use
-***
+1. Create print templates
+  In the "add card" or "edit card" dialog, choose the note type that will be printed. Click "Cards".  At the bottom, click the "PDF Exporter Templates" and you can see options for changing the exporter templates that will be printed. These templates are already premade for [AnKing Note Types](https://github.com/AnKingMed/AnKing-Note-Types). If the AnKing Note Type premade templates aren't working, you can use the menu AnKing->PDF Exporter->Reset AnKing Templates
+
+<b>exporter templates video<b><br>
+https://user-images.githubusercontent.com/31575114/168179403-1ac03002-d13c-4316-884b-c9443e06e160.mp4
+
+2. Export html file
+   Export notes as normal, but change the dropdown from .apkg to .html and you will get the addon dialog. Watch the video for more
+  
+  <b>print to pdf video<b><br>
+https://user-images.githubusercontent.com/31575114/168179374-d80775c4-5e2c-4738-be72-397f411c878d.mp4
+
+3. Print
+   Open the .html file that is exported in any browser and you can then print from the browser
+
 
 ## Screenshots
 <b>results<b><br>
@@ -14,11 +28,7 @@ You must be on Anki > 2.1.36 to use this add-on
 <b>export dialog<b><br>
 <img src="screenshots/export_dialog.png" width="300">
 
-<b>print to pdf<b><br>
-https://user-images.githubusercontent.com/31575114/168179374-d80775c4-5e2c-4738-be72-397f411c878d.mp4
 
-<b>exporter templates<b><br>
-https://user-images.githubusercontent.com/31575114/168179403-1ac03002-d13c-4316-884b-c9443e06e160.mp4
 
 
 ## Problems, Bugs, Errors, Improvements
