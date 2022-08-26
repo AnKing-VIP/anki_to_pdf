@@ -19,8 +19,7 @@ https://user-images.githubusercontent.com/31575114/168179403-1ac03002-d13c-4316-
   <b>print to pdf video<b><br>
 https://user-images.githubusercontent.com/31575114/168179374-d80775c4-5e2c-4738-be72-397f411c878d.mp4
 
-3. Print
-   Open the .html file that is exported in any browser and you can then print from the browser
+3. Open the .html file that is exported in any browser and you can then print from the browser
 
 
 ## Screenshots
