@@ -8,7 +8,8 @@ from anki.exporting import Exporter
 from anki.hooks import exporters_list_created, wrap
 from anki.notes import Note
 from anki.utils import ids2str
-from aqt import mw
+from aqt import dialogs, mw
+from aqt.browser import Browser
 from aqt.exporting import ExportDialog
 from aqt.qt import *
 from bs4 import BeautifulSoup  # type:ignore
@@ -169,18 +170,48 @@ class AnkiToHtmlExporter(Exporter):
         return cids
 
     def noteIds(self):
-        return [
-            x[0]
-            for x in self.col.db.execute(
-                f"""
-select id from notes
-where id in
-(select nid from cards
-where cards.id in {ids2str(self.cardIds())})
-order by guid"""
-            )
-            if x
-        ]
+
+        # if selected notes are exported from the browser they should be exported in the same order
+        # as they appear there
+        browser: Browser = dialogs._dialogs["Browser"][1]
+        if browser:
+            selected_nids = []
+            if (
+                hasattr(
+                    browser, "table"
+                )  # browser.table doesn't exist in older anki versions
+                and browser.table.is_notes_mode()
+                and (nids := browser.selected_notes())
+            ):
+                selected_nids = nids
+            elif (
+                not hasattr(
+                    browser, "table"
+                )  # browser.table doesn't exist in older anki versions and there is no notes_mode
+                or not browser.table.is_notes_mode()
+            ) and (selected_cids := browser.selected_cards()):
+                selected_nids = [self.col.get_card(cid).nid for cid in selected_cids]
+
+            if (
+                selected_nids
+                # the user could have some notes selected in the browser and
+                # export other notes, in this case we don't want to change the exported nids
+                and set(
+                    self.col.db.list(
+                        f"select id from cards where nid in {ids2str(selected_nids)}"
+                    )
+                )
+                == set(self.cardIds())
+            ):
+                return selected_nids
+
+        query = (
+            "select id from notes "
+            "where id in "
+            f"(select nid from cards where cards.id in {ids2str(self.cardIds())}) "
+            f"order by id"  # this effectively sorts the cards by created time
+        )
+        return [x for x in self.col.db.list(query) if x]
 
 
 def on_exporter_changed(self: ExportDialog, idx):

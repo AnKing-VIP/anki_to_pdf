@@ -2,9 +2,11 @@ import copy
 
 import anki
 from anki.cards import Card
+from anki.collection import Collection
 from anki.notes import Note
 from anki.template import TemplateRenderContext
 from aqt import mw
+from aqt.browser import Browser, Table
 from aqt.gui_hooks import profile_did_open
 
 
@@ -13,6 +15,10 @@ def add_compat_aliases():
     add_compat_alias(anki.utils, "is_win", "isWin")
     add_compat_alias(anki.utils, "is_mac", "isMac")
     add_compat_method(Note, "ephemeral_card", ephemeral_card)
+    add_compat_method(Table, "is_notes_mode", lambda self: False)
+    add_compat_method(Browser, "selected_notes", "selectedNotes")
+    add_compat_method(Browser, "selected_cards", "selectedCards")
+    add_compat_method(Collection, "get_card", "getCard")
 
     profile_did_open.append(lambda: add_compat_alias(mw.col, "get_note", "getNote"))
     profile_did_open.append(
