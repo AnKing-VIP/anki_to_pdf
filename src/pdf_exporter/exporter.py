@@ -22,7 +22,7 @@ from .consts import (
     USER_FILES_PATH,
 )
 from .export_templates import get_export_styling, get_export_templates
-from .utils import open_file, open_link
+from .utils import open_file, open_link, unique
 
 jinja_env = Environment(loader=FileSystemLoader(ADDON_PATH))
 
@@ -190,7 +190,9 @@ class AnkiToHtmlExporter(Exporter):
                 )  # browser.table doesn't exist in older anki versions and there is no notes_mode
                 or not browser.table.is_notes_mode()
             ) and (selected_cids := browser.selected_cards()):
-                selected_nids = [self.col.get_card(cid).nid for cid in selected_cids]
+                selected_nids = unique(
+                    [self.col.get_card(cid).nid for cid in selected_cids]
+                )
 
             if (
                 selected_nids
