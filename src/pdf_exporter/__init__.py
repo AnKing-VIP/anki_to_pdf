@@ -8,7 +8,7 @@ from .clayout import add_export_template_managment_to_clayout
 from .compat import add_compat_aliases
 from .consts import ANKING_EXPORT_TEMPLATES_PATH, USER_FILES_PATH
 from .export_templates import template_dir
-from .exporter import initialize_exporters
+from .exporters import initialize_exporters
 from .gui.anking_menu import get_anking_menu  # type: ignore
 
 USER_FILES_PATH.mkdir(exist_ok=True)
