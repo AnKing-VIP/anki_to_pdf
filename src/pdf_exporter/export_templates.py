@@ -7,7 +7,7 @@ from anki.utils import checksum
 
 from .anking_notetypes import anking_notetype_base_name
 from .consts import USER_FILES_PATH
-
+from .utils import read_text
 
 def get_export_templates(notetype_name: str) -> List[Dict]:
     result = []
@@ -15,8 +15,8 @@ def get_export_templates(notetype_name: str) -> List[Dict]:
         result.append(
             {
                 "name": "",
-                "qfmt": get_export_template_paths(notetype_name, ord)[0].read_text(),
-                "afmt": get_export_template_paths(notetype_name, ord)[1].read_text(),
+                "qfmt": read_text(get_export_template_paths(notetype_name, ord)[0]),
+                "afmt": read_text(get_export_template_paths(notetype_name, ord)[1]),
                 "ord": ord,
             }
         )
@@ -24,7 +24,7 @@ def get_export_templates(notetype_name: str) -> List[Dict]:
 
 
 def get_export_styling(notetype_name: str) -> str:
-    return create_styling_file_if_not_exists(notetype_name).read_text()
+    return read_text(create_styling_file_if_not_exists(notetype_name))
 
 
 def get_export_styling_path(notetype_name: str) -> Path:

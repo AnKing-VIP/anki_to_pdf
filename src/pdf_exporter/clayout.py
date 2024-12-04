@@ -13,11 +13,14 @@ try:
 except:
     pass
 
-from .export_templates import (create_templates_dir_if_not_exists,
-                               existing_export_template_ords,
-                               get_export_styling, get_export_styling_path,
-                               get_export_template_paths)
-from .utils import open_file
+from .export_templates import (
+    create_templates_dir_if_not_exists,
+    existing_export_template_ords,
+    get_export_styling,
+    get_export_styling_path,
+    get_export_template_paths,
+)
+from .utils import open_file, write_text, read_text
 
 # used to restore original templates to make it easier for the user to create modified versions of them
 original_templates = None
@@ -91,11 +94,11 @@ def _save_current_template_as_export_template(clayout: CardLayout):
     if choice_idx is None:
         return
     ord = ords[choice_idx]
-    get_export_template_paths(clayout.model["name"], ord)[0].write_text(
-        template["qfmt"]
+    write_text(
+        get_export_template_paths(clayout.model["name"], ord)[0], template["qfmt"]
     )
-    get_export_template_paths(clayout.model["name"], ord)[1].write_text(
-        template["afmt"]
+    write_text(
+        get_export_template_paths(clayout.model["name"], ord)[1], template["afmt"]
     )
 
 
@@ -123,12 +126,12 @@ def _load_export_tempplate_into_clayout(clayout: CardLayout):
         ord = int(choice)
         template = {
             "name": clayout.current_template()["name"],
-            "qfmt": get_export_template_paths(clayout.model["name"], ord)[
-                0
-            ].read_text(),
-            "afmt": get_export_template_paths(clayout.model["name"], ord)[
-                1
-            ].read_text(),
+            "qfmt": read_text(
+                get_export_template_paths(clayout.model["name"], ord)[0]
+            ),
+            "afmt": read_text(
+                get_export_template_paths(clayout.model["name"], ord)[1]
+            ),
             "ord": clayout.current_template()["ord"],
         }
         clayout.model["css"] = get_export_styling(clayout.model["name"])
@@ -177,7 +180,7 @@ def _smallest_available_ord(ords: List[int]) -> int:
 
 
 def _save_export_styling(clayout: CardLayout):
-    get_export_styling_path(clayout.model["name"]).write_text(clayout.model["css"])
+    write_text(get_export_styling_path(clayout.model["name"]), clayout.model["css"])
 
 
 def let_user_choose_from_list(

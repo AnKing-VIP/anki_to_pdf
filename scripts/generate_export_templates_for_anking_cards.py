@@ -39,5 +39,5 @@ for directory in NOTE_TYPES_PATH.iterdir():
         shutil.rmtree(out_directory)
     out_directory.mkdir()
 
-    (out_directory / "card1_front.html").write_text(front_html)
-    (out_directory / "card1_back.html").write_text(back_html)
+    (out_directory / "card1_front.html").write_text(front_html, encoding="utf-8")
+    (out_directory / "card1_back.html").write_text(back_html, encoding="utf-8")

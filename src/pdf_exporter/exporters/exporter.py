@@ -24,6 +24,7 @@ from ..consts import (
 from ..export_templates import get_export_styling, get_export_templates
 from ..utils import open_link
 from .common import export_options
+from ..utils import read_text
 
 jinja_env = Environment(loader=FileSystemLoader(ADDON_PATH))
 
@@ -34,7 +35,7 @@ class PDFExporter:
             USER_FILES_PATH.mkdir(exist_ok=True, parents=True)
             copyfile(DEFAULT_CSS_FILE_PATH, USER_CSS_FILE_PATH)
 
-        self.user_style = USER_CSS_FILE_PATH.read_text()
+        self.user_style = read_text(USER_CSS_FILE_PATH)
 
         media_uri = Path(mw.col.media.dir()).as_uri()
         self.base = f'<base href="{media_uri}/">'

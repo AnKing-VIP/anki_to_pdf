@@ -31,3 +31,11 @@ def unique(seq):
     seen = set()
     seen_add = seen.add
     return [x for x in seq if not (x in seen or seen_add(x))]
+
+
+def write_text(path: Path, data: str) -> int:
+    return path.write_text(data, encoding="utf-8")
+
+
+def read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
