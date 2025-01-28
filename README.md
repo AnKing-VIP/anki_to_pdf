@@ -37,7 +37,7 @@ If you find a serious bug, please submit it on <a href="https://github.com/ankip
 
 ## Changelog:
   <br>
-2022-*****: Initial Release
+2025-01-28: Initial Release
 
 
 ### If you like these, please consider donating to this project
